@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>currency exchange app</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<style type="text/css">
+			.container {
+				width: 400px;
+				height: 200px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin: -100px -200px;
+			}
+			.panel {
+				border-radius: 0;
+			}
+			.panel-body{
+				height: 115px;
+			}
+			.panel-footer{
+				text-align: right;
+			}
+			.panel-success {
+				border-color: #3c763d;
+			}
+			.panel-success>.panel-heading {
+				color: white;
+				background-color: #3c763d;
+				border-color: #3c763d;
+				border-radius: 0;
+			}
+			body{
+				background-image: url(https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/c32.0.50.50/p50x50/26190_107313242637589_7465571_n.jpg?oh=0d74ebe0404f5476afd8accbfc76db19&oe=5660EC22&__gda__=1452481926_fd140c16ef90e3be859826f3f02d11e2);
+			}
+			.precoReal {
+				font-size: 60px;
+				color: #3c763d;
+			}
+		</style>
+
+
+		<script>
+
+			var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Ffinance.yahoo.com%2Fd%2Fquotes.csv%3Fe%3D.csv%26f%3Dc4l1%26s%3DUSDBRL%3DX%22%3B&format=json&diagnostics=true&callback=";
+
+			var updateResults = function() {
+				
+				var xmlhttp = new XMLHttpRequest();
+			
+				xmlhttp.onreadystatechange = function() {
+
+				    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+					var myArr = JSON.parse(xmlhttp.responseText);
+
+					myFunction(myArr);
+
+					    }
+
+					}
+
+				xmlhttp.open("GET", url, true);
+
+				xmlhttp.send();
+
+				function myFunction(arr) {
+		
+					var result = arr.query;
+					var preco = parseFloat(result.results.row.col1.toString()).toFixed(2).replace(".",",");
+					var data = new Date(result.created).toLocaleString();
+
+					document.getElementById("preco").innerHTML = preco;
+
+					document.getElementById("update-date-time").innerHTML = data;
+
+				}
+
+			};
+
+			updateResults();
+
+			//setInterval(updateResults, 6000000);
+
+			setInterval(updateResults, 1000);
+
+		</script>
+
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="panel panel-success">
+				<div class="panel-heading"><strong>COTAÇÃO DO 	DOLAR</strong></div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<strong class="precoReal">R$ <span id="preco"></span></strong>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<strong>Data:</strong> <span id="update-date-time"></span>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+
