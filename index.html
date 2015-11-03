@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>currency exchange app</title>
+		<title>Preço Dólar</title>
 
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
@@ -84,12 +84,19 @@
 			updateResults();
 
 			setInterval(updateResults, 60000);
-
 		</script>
-
 	</head>
 
 	<body>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=466018083566495";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+
 		<div class="container">
 			<div class="panel panel-success">
 				<div class="panel-heading"><strong>COTAÇÃO DO DOLAR</strong></div>
@@ -102,7 +109,33 @@
 				</div>
 				<div class="panel-footer">
 					<strong>Atualizado:</strong> <span id="update-date-time"></span>
-				</div>
+
+					<br><br>
+
+					<script>
+					  window.fbAsyncInit = function() {
+					    FB.init({
+					      appId      : '832947360135842',
+					      xfbml      : true,
+					      version    : 'v2.5'
+					    });
+					  };
+
+					  (function(d, s, id){
+					     var js, fjs = d.getElementsByTagName(s)[0];
+					     if (d.getElementById(id)) {return;}
+					     js = d.createElement(s); js.id = id;
+					     js.src = "//connect.facebook.net/en_US/sdk.js";
+					     fjs.parentNode.insertBefore(js, fjs);
+					   }(document, 'script', 'facebook-jssdk'));
+					</script>
+
+					<div
+					  class="fb-like"
+					  data-share="true"
+					  data-width="450"
+					  data-show-faces="true">
+					</div>
 			</div>
 		</div>
 	</body>
